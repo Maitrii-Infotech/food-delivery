@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Your Meal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,9 +22,6 @@
             position: sticky;
             top: 0;
         }
-        .logo {
-            font-size: 24px;
-        }
         .blinking-text {
             animation: blinker 1s linear infinite;
         }
@@ -34,10 +32,10 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* Two columns on desktop */
             gap: 20px;
-            padding: 20px;
+            padding: 10rem;
         }
         .grid-item {
-            border: 1px solid #ccc;
+            /* border: 1px solid #ccc; */
             padding: 10px;
             text-align: center;
         }
@@ -46,10 +44,10 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: orange; /* Changed background to orange */
+            background-color: rgb(234, 229, 218); /* Changed background to orange */
             color: white;
             padding: 10px; /* Adjusted padding for aesthetics */
-            height: 40px; /* Increased height of the bottom bar */
+            height: 50px; /* Increased height of the bottom bar */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -80,13 +78,14 @@
             padding-top: 10px; /* Added top padding to the price */
         }
         .pay-button {
-            height: 50px; /* Increased height of the Pay Now button */
-            background-color: red; /* Changed background color to red */
+            height: 30px; /* Increased height of the Pay Now button */
+            background-color: rgb(195, 119, 119); /* Changed background color to red */
             color: white; /* Text color white */
             border: none; /* Removed border */
             border-radius: 5px; /* Added border radius */
             font-size: 20px; /* Increased font size */
             cursor: pointer; /* Changed cursor to pointer */
+            padding: 0 10px; /* Added padding */
         }
         @media (max-width: 600px) {
             .grid-container {
@@ -95,57 +94,104 @@
         }
         /* Popup styles */
         .popup {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+            background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
+            z-index: 50;
         }
         .popup-content {
             background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            width: 300px;
-            text-align: center;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
     </style>
 </head>
 <body>
-<header>
-    <div class="logo">My Logo</div>
-    <div class="blinking-text">Order Your Meal</div>
+<header style="background-color: #CBB693;">
+    <div><img src="./assets/meal2.jpeg" alt="" style="width: 60px; height: 80px;"></div>
+    <div class="blinking-text text-2xl" style="color: #85A17A;">Order Your Meal</div>
 </header>
 <div class="grid-container" id="menuItems"></div>
-<div class="sticky-bar">
-    <div>Total: <span id="totalPrice">0</span></div>
-    <button class="pay-button" onclick="payNow()">Pay Now</button>
+<div class="sticky-bar" style="background-color: #85A07B;">
+    <div style="font-size: 24px;" class="text-black font-bold">Total: <span id="totalPrice">0</span></div>
+    <button class="justify-center flex items-center text-white py-2 px-4 rounded-lg  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" 
+    style="background-color: #FD6E04;" onclick="payNow()">Pay Now</button>
 </div>
 <div class="popup" id="paymentPopup">
     <div class="popup-content">
-        <h3>Credit Card Information</h3>
-        <label for="cardNumber">Card Number:</label><br>
-        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456"><br><br>
-        <label for="expiryDate">Expiry Date:</label><br>
-        <input type="text" id="expiryDate" placeholder="MM/YY"><br><br>
-        <label for="cvv">CVV:</label><br>
-        <input type="text" id="cvv" placeholder="123"><br><br>
-        <button onclick="submitPayment()">Submit</button>
-        <button onclick="closePopup()">Cancel</button>
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800">Payment Details</h3>
+            <button onclick="closePopup()" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" id="email" placeholder="your@email.com"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+            </div>
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                <input type="tel" id="phone" placeholder="123-456-7890"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+            </div>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <label for="cardNumber" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="expiryDate" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                    <input type="text" id="expiryDate" placeholder="MM/YY" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                </div>
+                <div>
+                    <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                    <input type="text" id="cvv" placeholder="123" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 space-y-3">
+            <button onclick="submitPayment()" 
+                class="w-full text-white py-2 px-4 rounded-lg  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                style="background-color: #85A07B;">
+                Pay Now
+            </button>
+            <button onclick="closePopup()" 
+                class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
+                Cancel
+            </button>
+        </div>
     </div>
 </div>
 <script>
     let order = [];
     const menuItems = [
-        { title: "Item 1", cost: 10, image: "item1.jpg" },
-        { title: "Item 2", cost: 15, image: "item2.jpg" },
-        { title: "Item 3", cost: 20, image: "item3.jpg" },
-        { title: "Item 4", cost: 25, image: "item4.jpg" },
-        { title: "Item 5", cost: 30, image: "item5.jpg" },
-        { title: "Item 6", cost: 35, image: "item6.jpg" }
+        { title: "Thalli 1", cost: 10, image: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg" },
+        { title: "Thalli 2", cost: 15, image: "https://imgs.search.brave.com/Tv76Axpepms2Xw-WGyIYfcepvBEBlmC9Ha66wIZzVz4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9i/L2JhL0luZGlhbl9U/aGFsaS5qcGc" },
+        { title: "Thalli 3", cost: 20, image: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg" },
+        { title: "Thalli 4", cost: 25, image: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg" },
+        { title: "Thalli 5", cost: 30, image: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg" },
+        { title: "Thalli 6", cost: 35, image: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg" }
     ];
     function renderMenu() {
         const container = document.getElementById('menuItems');
@@ -155,16 +201,18 @@
             gridItem.setAttribute('data-title', item.title);
             gridItem.setAttribute('data-cost', item.cost);
             gridItem.innerHTML = `
-                <div class="item-image">
-                    <img src="${item.image}" alt="${item.title}" style="width: 100%;">
+                <div class="bg-white rounded-lg shadow p-2 sm:p-3 transition-transform hover:scale-105">
+                    <div class="item-image overflow-hidden rounded-lg">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-24 sm:h-28 object-cover">
+                    </div>
+                    <h3 class="text-base sm:text-lg font-semibold text-gray-800 mt-2 mb-1">${item.title}</h3>
+                    <div class="item-controls flex items-center justify-center space-x-2 sm:space-x-3 my-2">
+                        <button onclick="updateQuantity('${item.title}', ${item.cost}, -1)" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-0.5 px-2 rounded-full text-sm">-</button>
+                        <span id="quantity-${item.title}" class="text-base font-medium">0</span>
+                        <button onclick="updateQuantity('${item.title}', ${item.cost}, 1)" class="bg-blue-500 hover:bg-gray-300 text-white font-medium py-0.5 px-2 rounded-full text-sm shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200">+</button>
+                    </div>
+                    <div class="price text-2xl font-bold text-black-600">$${item.cost}</div>
                 </div>
-                <h3>${item.title}</h3>
-                <div class="item-controls">
-                    <button onclick="updateQuantity('${item.title}', ${item.cost}, -1)">-</button>
-                    <span id="quantity-${item.title}">0</span>
-                    <button onclick="updateQuantity('${item.title}', ${item.cost}, 1)">+</button>
-                </div>
-                <div class="price">Price: $${item.cost}</div>
             `;
             container.appendChild(gridItem);
         });
