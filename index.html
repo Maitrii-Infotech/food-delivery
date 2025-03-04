@@ -1,0 +1,204 @@
+<!-- Start Generation Here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Your Meal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff; /* Changed to white */
+            color: #333; /* Changed text color to dark for contrast */
+            padding: 10px;
+            position: sticky;
+            top: 0;
+        }
+        .logo {
+            font-size: 24px;
+        }
+        .blinking-text {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns on desktop */
+            gap: 20px;
+            padding: 20px;
+        }
+        .grid-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: orange; /* Changed background to orange */
+            color: white;
+            padding: 10px; /* Adjusted padding for aesthetics */
+            height: 40px; /* Increased height of the bottom bar */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
+        }
+        .item-image {
+            text-align: left;
+        }
+        .item-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Align controls to the right */
+        }
+        .item-controls button {
+            margin: 0 10px; /* Increased spacing between buttons and text */
+            font-size: 16px; /* Decreased font size for buttons */
+            color: red; /* Changed button color to red */
+            background: none; /* Removed background */
+            border: 2px solid black; /* Added dark border to buttons */
+            border-radius: 50%; /* Made border circular */
+            padding: 5px; /* Adjusted padding for smaller button height */
+            width: 30px; /* Set a fixed width for circular buttons */
+            height: 30px; /* Set a fixed height for circular buttons */
+            cursor: pointer; /* Changed cursor to pointer */
+        }
+        .price {
+            text-align: right; /* Right align price */
+            padding-top: 10px; /* Added top padding to the price */
+        }
+        .pay-button {
+            height: 50px; /* Increased height of the Pay Now button */
+            background-color: red; /* Changed background color to red */
+            color: white; /* Text color white */
+            border: none; /* Removed border */
+            border-radius: 5px; /* Added border radius */
+            font-size: 20px; /* Increased font size */
+            cursor: pointer; /* Changed cursor to pointer */
+        }
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: 1fr; /* One column on mobile */
+            }
+        }
+        /* Popup styles */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">My Logo</div>
+    <div class="blinking-text">Order Your Meal</div>
+</header>
+<div class="grid-container" id="menuItems"></div>
+<div class="sticky-bar">
+    <div>Total: <span id="totalPrice">0</span></div>
+    <button class="pay-button" onclick="payNow()">Pay Now</button>
+</div>
+<div class="popup" id="paymentPopup">
+    <div class="popup-content">
+        <h3>Credit Card Information</h3>
+        <label for="cardNumber">Card Number:</label><br>
+        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456"><br><br>
+        <label for="expiryDate">Expiry Date:</label><br>
+        <input type="text" id="expiryDate" placeholder="MM/YY"><br><br>
+        <label for="cvv">CVV:</label><br>
+        <input type="text" id="cvv" placeholder="123"><br><br>
+        <button onclick="submitPayment()">Submit</button>
+        <button onclick="closePopup()">Cancel</button>
+    </div>
+</div>
+<script>
+    let order = [];
+    const menuItems = [
+        { title: "Item 1", cost: 10, image: "item1.jpg" },
+        { title: "Item 2", cost: 15, image: "item2.jpg" },
+        { title: "Item 3", cost: 20, image: "item3.jpg" },
+        { title: "Item 4", cost: 25, image: "item4.jpg" },
+        { title: "Item 5", cost: 30, image: "item5.jpg" },
+        { title: "Item 6", cost: 35, image: "item6.jpg" }
+    ];
+    function renderMenu() {
+        const container = document.getElementById('menuItems');
+        menuItems.forEach(item => {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'grid-item';
+            gridItem.setAttribute('data-title', item.title);
+            gridItem.setAttribute('data-cost', item.cost);
+            gridItem.innerHTML = `
+                <div class="item-image">
+                    <img src="${item.image}" alt="${item.title}" style="width: 100%;">
+                </div>
+                <h3>${item.title}</h3>
+                <div class="item-controls">
+                    <button onclick="updateQuantity('${item.title}', ${item.cost}, -1)">-</button>
+                    <span id="quantity-${item.title}">0</span>
+                    <button onclick="updateQuantity('${item.title}', ${item.cost}, 1)">+</button>
+                </div>
+                <div class="price">Price: $${item.cost}</div>
+            `;
+            container.appendChild(gridItem);
+        });
+    }
+    function updateQuantity(title, cost, change) {
+        const itemIndex = order.findIndex(item => item.title === title);
+        if (itemIndex > -1) {
+            order[itemIndex].quantity += change;
+            if (order[itemIndex].quantity <= 0) {
+                order.splice(itemIndex, 1);
+            }
+        } else {
+            order.push({ title, cost, quantity: change > 0 ? 1 : 0 });
+        }
+        document.getElementById(`quantity-${title}`).innerText = order[itemIndex]?.quantity || (change > 0 ? 1 : 0);
+        calculateTotal();
+    }
+    function calculateTotal() {
+        const total = order.reduce((sum, item) => sum + (item.cost * item.quantity), 0);
+        document.getElementById('totalPrice').innerText = total;
+    }
+    function payNow() {
+        document.getElementById('paymentPopup').style.display = 'flex'; // Show the popup
+    }
+    function closePopup() {
+        document.getElementById('paymentPopup').style.display = 'none'; // Hide the popup
+    }
+    function submitPayment() {
+        alert('Payment submitted!'); // Placeholder for payment submission logic
+        closePopup(); // Close the popup after submission
+    }
+    // Render the menu items on page load
+    renderMenu();
+</script>
+</body>
+</html>
+<!-- End Generation Here -->
