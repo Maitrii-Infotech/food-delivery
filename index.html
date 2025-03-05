@@ -18,7 +18,7 @@
             align-items: center;
             background-color: #fff; /* Changed to white */
             color: #333; /* Changed text color to dark for contrast */
-            padding: 10px;
+            padding: 0 10px;
             position: sticky;
             top: 0;
         }
@@ -28,9 +28,16 @@
         @keyframes blinker {
             50% { opacity: 0; }
         }
+
+        @media (max-width: 600px) {
+            header{
+                padding: 0px 5px;
+            }
+        }
+
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Two columns on desktop */
+            grid-template-columns: repeat(3, 1fr); /* Two columns on desktop */
             gap: 20px;
             padding: 10rem;
         }
@@ -39,8 +46,24 @@
             padding: 10px;
             text-align: center;
         }
+
+        @media (max-width: 600px) {
+            .grid-container {
+                align-items: center;
+                justify-content: center;
+                gap:10px;
+                padding: 1rem;
+                grid-template-columns: repeat(1 ,1fr); /* One column on mobile */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-item{
+                padding: 5px;
+            }
+        }
         .sticky-bar {
-            position: fixed;
+            position: sticky;
             bottom: 0;
             left: 0;
             right: 0;
@@ -62,21 +85,30 @@
             justify-content: flex-end; /* Align controls to the right */
         }
         .item-controls button {
-            margin: 0 10px; /* Increased spacing between buttons and text */
+            /* Increased spacing between buttons and text */
             font-size: 16px; /* Decreased font size for buttons */
-            color: red; /* Changed button color to red */
-            background: none; /* Removed background */
-            border: 2px solid black; /* Added dark border to buttons */
-            border-radius: 50%; /* Made border circular */
-            padding: 5px; /* Adjusted padding for smaller button height */
+            color: white;
+            background-color: #85A17A; /* Changed button color to red */
+            border-style:none; /* Removed background */
+            /* Added dark border to buttons */
+            border-radius: 10%; /* Made border circular */
+            padding: 4px; /* Adjusted padding for smaller button height */
             width: 30px; /* Set a fixed width for circular buttons */
             height: 30px; /* Set a fixed height for circular buttons */
             cursor: pointer; /* Changed cursor to pointer */
         }
+
         .price {
             text-align: right; /* Right align price */
             padding-top: 10px; /* Added top padding to the price */
         }
+
+        @media (max-width: 600px) {
+            .item-image{
+                text-align: center;
+            }
+        }
+
         .pay-button {
             height: 30px; /* Increased height of the Pay Now button */
             background-color: rgb(195, 119, 119); /* Changed background color to red */
@@ -87,11 +119,7 @@
             cursor: pointer; /* Changed cursor to pointer */
             padding: 0 10px; /* Added padding */
         }
-        @media (max-width: 600px) {
-            .grid-container {
-                grid-template-columns: 1fr; /* One column on mobile */
-            }
-        }
+        
         /* Popup styles */
         .popup {
             display: none;
@@ -118,7 +146,7 @@
 <body>
 <header style="background-color: #CBB693;">
     <div><img src="./assets/meal2.jpeg" alt="" style="width: 60px; height: 80px;"></div>
-    <div class="blinking-text text-2xl" style="color: #85A17A;">Order Your Meal</div>
+    <div class="blinking-text text-xl md:2xl" style="color: #85A17A;">Order Your Meal</div>
 </header>
 <div class="grid-container" id="menuItems"></div>
 <div class="sticky-bar" style="background-color: #85A07B;">
@@ -201,17 +229,20 @@
             gridItem.setAttribute('data-title', item.title);
             gridItem.setAttribute('data-cost', item.cost);
             gridItem.innerHTML = `
-                <div class="bg-white rounded-lg shadow p-2 sm:p-3 transition-transform hover:scale-105">
+                <div class=" bg-white text-start p-1 md:p-2 rounded-lg shadow transition-transform hover:scale-105">
                     <div class="item-image overflow-hidden rounded-lg">
-                        <img src="${item.image}" alt="${item.title}" class="w-full h-24 sm:h-28 object-cover">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-24 h-40 md:h-48 object-cover">
                     </div>
-                    <h3 class="text-base sm:text-lg font-semibold text-gray-800 mt-2 mb-1">${item.title}</h3>
-                    <div class="item-controls flex items-center justify-center space-x-2 sm:space-x-3 my-2">
+                    <div class="flex items-center justify-between price p-2 text-xl font-semibold text-black-600">
+                        <h3 class="text-lg  md:text-base font-semibold text-gray-800 ">${item.title}</h3>
+                        $${item.cost}
+                    </div>
+
+                    <div class="item-controls flex items-center justify-start space-x-2 sm:space-x-3 my-2">
                         <button onclick="updateQuantity('${item.title}', ${item.cost}, -1)" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-0.5 px-2 rounded-full text-sm">-</button>
                         <span id="quantity-${item.title}" class="text-base font-medium">0</span>
                         <button onclick="updateQuantity('${item.title}', ${item.cost}, 1)" class="bg-blue-500 hover:bg-gray-300 text-white font-medium py-0.5 px-2 rounded-full text-sm shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200">+</button>
                     </div>
-                    <div class="price text-2xl font-bold text-black-600">$${item.cost}</div>
                 </div>
             `;
             container.appendChild(gridItem);
