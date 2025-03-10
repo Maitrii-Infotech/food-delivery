@@ -224,6 +224,7 @@
       .tooltip-container:hover .tooltip {
         visibility: visible;
         opacity: 1;
+        transform: translateX(-50%) translateY(-8px);
       }
 
       .tooltip {
@@ -231,16 +232,21 @@
         position: absolute;
         bottom: 100%;
         left: 50%;
-        transform: translateX(-50%);
-        background-color: #333;
+        transform: translateX(-50%) translateY(0);
+        background: linear-gradient(135deg, #097969 0%, #085e52 100%);
         color: white;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 12px;
-        white-space: nowrap;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        white-space: normal;
+        max-width: 250px;
+        min-width: 150px;
         opacity: 0;
-        transition: opacity 0.3s;
-        z-index: 10;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        text-align: center;
+        line-height: 1.4;
+        z-index: 100;
       }
 
       .tooltip::after {
@@ -248,14 +254,63 @@
         position: absolute;
         top: 100%;
         left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
+        margin-left: -6px;
+        border-width: 6px;
         border-style: solid;
-        border-color: #333 transparent transparent transparent;
+        border-color: #085e52 transparent transparent transparent;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+      }
+
+      @media (max-width: 600px) {
+        .tooltip {
+          font-size: 12px;
+          max-width: 200px;
+          min-width: 120px;
+          padding: 6px 10px;
+        }
       }
 
       i {
         font-size: 25px;
+      }
+
+      /* Add snackbar styles */
+      .snackbar {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 8px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1000;
+        left: 50%;
+        bottom: 60px;
+        font-size: 14px;
+        transform: translateY(100%);
+        transition: transform 0.3s, visibility 0.3s;
+      }
+
+      .snackbar.error {
+        background-color: #dc2626;
+      }
+
+      .snackbar.success {
+        background-color: #059669;
+      }
+
+      .snackbar.show {
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 600px) {
+        .snackbar {
+          width: 90%;
+          margin-left: -45%;
+        }
       }
     </style>
   </head>
@@ -284,7 +339,14 @@
       <!-- <div class="blinking-text text-xl md:2xl hidden md:inline" style="color: #85a17a">
         Order Your Meal
       </div> -->
-      <div class="flex gap-2">
+      <div class="flex gap-2 items-center">
+          <div id="postalCodeDisplay" class="hidden items-center gap-2 bg-white/10 px-3 py-1 rounded-full">
+            <i class="ri-map-pin-2-line text-white text-lg"></i>
+            <span id="currentPostalCode" class="text-white text-sm"></span>
+            <button onclick="clearPostalCode()" class="text-white hover:text-red-300 transition-colors">
+              <i class="ri-delete-bin-line text-lg"></i>
+            </button>
+          </div>
           <i class="ri-shopping-cart-line text-white text-2xl font-medium md:text-3xl"></i>
           <i class="ri-account-circle-line text-white text-2xl font-medium md:text-4xl"></i>
       </div>
@@ -617,6 +679,33 @@
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
             />
           </div>
+          <div>
+            <label
+              for="paymentPostalCode"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Postal Code</label
+            >
+            <input
+              type="text"
+              id="paymentPostalCode"
+              placeholder="Enter postal code"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <label
+              for="address"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Delivery Address</label
+            >
+            <textarea
+              id="address"
+              placeholder="Enter your complete delivery address"
+              rows="2"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none"
+            ></textarea>
+          </div>
         </div>
 
         <div class="space-y-4">
@@ -698,7 +787,7 @@
           <div class="mb-4">
             <label for="postalCode" class="block text-sm font-medium text-gray-700 mb-1">Enter Your Postal Code</label>
             <input type="text" id="postalCode" placeholder="Enter postal code" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
-            <div id="postalError" class="error-message hidden">Sorry, we don't deliver to this area yet.</div>
+            <div id="postalError" class="error-message hidden">We're expanding! While we don't deliver to your area yet, we'd love to notify you when we do.</div>
           </div>
           <button onclick="validatePostalCode()" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
             Validate
@@ -707,15 +796,18 @@
 
         <div id="emailSection" class="hidden">
           <div class="mb-4">
-            <label for="userEmail" class="block text-sm font-medium text-gray-700 mb-1">Enter Your Email for Updates</label>
+            <label for="userEmail" class="block text-sm font-medium text-gray-700 mb-1">Be the first to know when we arrive in your area!</label>
             <input type="email" id="userEmail" placeholder="your@email.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
           </div>
           <button onclick="submitEmail()" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-            Submit
+            Keep Me Updated
           </button>
         </div>
       </div>
     </div>
+
+    <!-- Add Snackbar -->
+    <div id="snackbar" class="snackbar"></div>
 
     <script>
       let order = [];
@@ -810,9 +902,16 @@
       }
       function updateQuantity(title, cost, change) {
         if (change > 0) {
-          // Store the current item details for later use
+          // Check if we already have a validated postal code
+          const validatedPostalCode = localStorage.getItem('validatedPostalCode');
+          if (validatedPostalCode) {
+            // If we have a validated postal code, add item directly
+            addItemToCart(title, cost, change);
+            return;
+          }
+          
+          // If no validated postal code, show the modal
           currentItemToAdd = { title, cost, change };
-          // Show the postal code modal
           document.getElementById('postalModal').style.display = 'flex';
           document.getElementById('postalCodeSection').classList.remove('hidden');
           document.getElementById('emailSection').classList.add('hidden');
@@ -833,6 +932,17 @@
           order[itemIndex]?.quantity || 0;
         calculateTotal();
       }
+      function addItemToCart(title, cost, change) {
+        const itemIndex = order.findIndex((item) => item.title === title);
+        if (itemIndex > -1) {
+          order[itemIndex].quantity += change;
+        } else {
+          order.push({ title, cost, quantity: change });
+        }
+        document.getElementById(`quantity-${title}`).innerText =
+          order.find(item => item.title === title)?.quantity || 1;
+        calculateTotal();
+      }
       function calculateTotal() {
         const total = order.reduce(
           (sum, item) => sum + item.cost * item.quantity,
@@ -841,14 +951,73 @@
         document.getElementById("totalPrice").innerText = total;
       }
       function payNow() {
-        document.getElementById("paymentPopup").style.display = "flex"; // Show the popup
+        const validatedPostalCode = localStorage.getItem('validatedPostalCode');
+        if (validatedPostalCode) {
+          document.getElementById('paymentPostalCode').value = validatedPostalCode;
+        } else {
+          showSnackbar('Please add items to your cart first and validate your postal code.', 'error');
+          return;
+        }
+        document.getElementById("paymentPopup").style.display = "flex";
       }
       function closePopup() {
         document.getElementById("paymentPopup").style.display = "none"; // Hide the popup
       }
+      function showSnackbar(message, type = 'default') {
+        const snackbar = document.getElementById('snackbar');
+        snackbar.textContent = message;
+        snackbar.className = 'snackbar';
+        
+        if (type === 'error') {
+          snackbar.classList.add('error');
+        } else if (type === 'success') {
+          snackbar.classList.add('success');
+        }
+        
+        snackbar.classList.add('show');
+        
+        // Hide after 3 seconds
+        setTimeout(() => {
+          snackbar.classList.remove('show');
+        }, 3000);
+      }
       function submitPayment() {
-        alert("Payment submitted!"); // Placeholder for payment submission logic
-        closePopup(); // Close the popup after submission
+        const postalCode = document.getElementById('paymentPostalCode').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const cardNumber = document.getElementById('cardNumber').value;
+        const expiryDate = document.getElementById('expiryDate').value;
+        const cvv = document.getElementById('cvv').value;
+        const address = document.getElementById('address').value;
+
+        // Validate required fields
+        if (!email || !phone || !postalCode || !cardNumber || !expiryDate || !cvv || !address) {
+          showSnackbar('Please fill in all required fields', 'error');
+          return;
+        }
+
+        // Validate postal code
+        if (!validPostalCode.includes(Number(postalCode))) {
+          showSnackbar('Invalid postal code. Please enter a valid postal code.', 'error');
+          return;
+        }
+
+        // Store validated postal code if it's not already stored
+        if (!localStorage.getItem('validatedPostalCode')) {
+          localStorage.setItem('validatedPostalCode', postalCode);
+        }
+
+        // If all validations pass, submit payment
+        showSnackbar('Payment submitted successfully!', 'success');
+        
+        // Clear the cart after successful payment
+        order = [];
+        document.querySelectorAll('[id^="quantity-"]').forEach(element => {
+          element.innerText = '0';
+        });
+        calculateTotal();
+        
+        closePopup();
       }
       function closePostalModal() {
         document.getElementById('postalModal').style.display = 'none';
@@ -857,17 +1026,13 @@
       function validatePostalCode() {
         const postalCode = document.getElementById('postalCode').value;
         if (validPostalCode.includes(Number(postalCode))) {
-          // Valid postal code, add item to cart
+          // Store the validated postal code
+          localStorage.setItem('validatedPostalCode', postalCode);
+          updatePostalCodeDisplay();
+          
+          // Add item to cart
           const { title, cost, change } = currentItemToAdd;
-          const itemIndex = order.findIndex((item) => item.title === title);
-          if (itemIndex > -1) {
-            order[itemIndex].quantity += change;
-          } else {
-            order.push({ title, cost, quantity: change });
-          }
-          document.getElementById(`quantity-${title}`).innerText =
-            order.find(item => item.title === title)?.quantity || 1;
-          calculateTotal();
+          addItemToCart(title, cost, change);
           closePostalModal();
         } else {
           // Invalid postal code, show email section
@@ -879,11 +1044,10 @@
       function submitEmail() {
         const email = document.getElementById('userEmail').value;
         if (email) {
-          // Here you can add code to store the email for future notifications
-          alert('Thank you! We will notify you when we start delivering to your area.');
+          showSnackbar('Thank you! We will notify you when we start delivering to your area.', 'success');
           closePostalModal();
         } else {
-          alert('Please enter a valid email address');
+          showSnackbar('Please enter a valid email address', 'error');
         }
       }
 
@@ -917,20 +1081,31 @@
         });
       }
 
-      // Add this new function for contact form submission
-      function submitContactForm(event) {
-        event.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('contactEmail').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-        
-        // Here you would typically send this data to your server
-        alert('Thank you for your message! We will get back to you soon.');
-        
-        // Clear the form
-        event.target.reset();
+      // Add function to clear postal code (useful for testing or logging out)
+      function clearPostalCode() {
+        localStorage.removeItem('validatedPostalCode');
+        updatePostalCodeDisplay();
+        showSnackbar('Postal code removed successfully', 'success');
       }
+
+      // Function to update postal code display
+      function updatePostalCodeDisplay() {
+        const postalCodeDisplay = document.getElementById('postalCodeDisplay');
+        const currentPostalCode = document.getElementById('currentPostalCode');
+        const validatedPostalCode = localStorage.getItem('validatedPostalCode');
+        
+        if (validatedPostalCode) {
+          currentPostalCode.textContent = validatedPostalCode;
+          postalCodeDisplay.classList.remove('hidden');
+          postalCodeDisplay.classList.add('flex');
+        } else {
+          postalCodeDisplay.classList.add('hidden');
+          postalCodeDisplay.classList.remove('flex');
+        }
+      }
+
+      // Update postal code display when page loads
+      document.addEventListener('DOMContentLoaded', updatePostalCodeDisplay);
 
       // Render the menu items on page load
       renderMenu();
