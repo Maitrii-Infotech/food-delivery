@@ -29,7 +29,7 @@
         border-radius: 20px;
         position: sticky;
         top: 0;
-        gap:10px;
+        gap: 10px;
       }
 
       .blinking-text {
@@ -44,15 +44,15 @@
 
       @media (max-width: 600px) {
         header {
-        justify-content: space-between;
-        align-items: center;
-        background-color: #097969; /*Changed to white */
-        color: #333; /* Changed text color to dark for contrast */
-        padding: 5px;
-        margin: 5px 11px;
-        border-radius: 20px;
-        position: sticky;
-        top: 0;
+          justify-content: space-between;
+          align-items: center;
+          background-color: #097969; /*Changed to white */
+          color: #333; /* Changed text color to dark for contrast */
+          padding: 5px;
+          margin: 5px 11px;
+          border-radius: 20px;
+          position: sticky;
+          top: 0;
         }
       }
 
@@ -91,10 +91,10 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: rgb(234, 229, 218);/* Changed background to orange */
+        background-color: rgb(234, 229, 218); /* Changed background to orange */
         color: white;
-        padding: 10px;/* Adjusted padding for aesthetics */
-        height: 50px;/* Increased height of the bottom bar */
+        padding: 10px; /* Adjusted padding for aesthetics */
+        height: 50px; /* Increased height of the bottom bar */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -243,7 +243,8 @@
         min-width: 150px;
         opacity: 0;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
         text-align: center;
         line-height: 1.4;
         z-index: 100;
@@ -317,13 +318,22 @@
 
   <body>
     <!-- Header -->
-    <header style="background-color: #097969" class="h-20 ">
-      <div>
-        <img
-          src="./assets/bg-logo.png"
-          alt=""
-          class="w-20 h-20"
-        />
+    <header style="background-color: #097969" class="h-20">
+      <div class="flex items-center flex-col p-0 m-0 relative">
+        <div class="relative ml-2">
+          <img src="./assets/mealboy.png" alt="" class="w-20 h-20 ml-2" />
+          <p
+            class="absolute left-0 top-1/2 translate-y-1.5 translate-x-1 text-xs text-white uppercase"
+          >
+            meal
+          </p>
+          <p
+            class="absolute right-0 top-1/2 -translate-y-1/2 -translate-x-1 text-white text-xs uppercase"
+          >
+            boy
+          </p>
+        </div>
+        <p class="text-white text-[7px] -mt-2">Box of yumminess</p>
       </div>
       <!-- <div class="relative w-64 md:w-80 lg:w-96">
         <input 
@@ -335,61 +345,117 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z" />
         </svg>
     </div> -->
-      
+
       <!-- <div class="blinking-text text-xl md:2xl hidden md:inline" style="color: #85a17a">
         Order Your Meal
       </div> -->
       <div class="flex gap-2 items-center">
-          <div id="postalCodeDisplay" class="hidden items-center gap-2 bg-white/10 px-3 py-1 rounded-full">
-            <i class="ri-map-pin-2-line text-white text-lg"></i>
-            <span id="currentPostalCode" class="text-white text-sm"></span>
-            <button onclick="clearPostalCode()" class="text-white hover:text-red-300 transition-colors">
-              <i class="ri-delete-bin-line text-lg"></i>
-            </button>
-          </div>
-          <i class="ri-shopping-cart-line text-white text-2xl font-medium md:text-3xl"></i>
-          <i class="ri-account-circle-line text-white text-2xl font-medium md:text-4xl"></i>
+        <div
+          id="postalCodeDisplay"
+          class="hidden items-center gap-2 bg-white/10 px-3 py-1 rounded-full"
+        >
+          <i class="ri-map-pin-2-line text-white text-lg"></i>
+          <span id="currentPostalCode" class="text-white text-sm"></span>
+          <button
+            onclick="clearPostalCode()"
+            class="text-white hover:text-red-300 transition-colors"
+          >
+            <i class="ri-delete-bin-line text-lg"></i>
+          </button>
+        </div>
+        <i
+          class="ri-shopping-cart-line text-white text-2xl font-medium md:text-3xl"
+        ></i>
+        <i
+          class="ri-account-circle-line text-white text-2xl font-medium md:text-4xl"
+        ></i>
       </div>
     </header>
 
     <!-- First Section -->
-    <section class="flex flex-col md:flex-row justify-center items-center px-4 md:px-20 bg-[#097969] rounded-3xl mx-3 md:mx-10 mt-5 p-5 md:p-5">
-        <!-- Text -->
-        <div class="w-full md:w-[50%] md:px-20 mb-6 md:mb-0">
-            <h1 class="text-xl md:text-4xl font-bold text-white mb-4">
-                Mealboy.nl – Box of Yumminess
-            </h1>
-            <p class="text-sm md:text-lg text-white/90 mb-6">
-                Fresh, affordable, and delicious Indian meals delivered to your doorstep in Eindhoven.
-            </p>
-            <div class="space-y-2 mb-6">
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span class="text-sm md:text-base text-white/90">Authentic Indian flavors</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span class="text-sm md:text-base text-white/90">High-quality meals at affordable prices</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span class="text-sm md:text-base text-white/90">Always delivered hot and on time</span>
-                </div>
-            </div>
-            <button class="w-full md:w-auto px-6 py-3 bg-green-400 text-white text-sm md:text-base font-medium rounded-full hover:bg-green-500 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-105" onclick="scrollToMenu()">
-                View Menu
-            </button>
+    <section
+      class="flex flex-col md:flex-row justify-center items-center px-4 md:px-20 bg-[#097969] rounded-3xl mx-3 md:mx-10 mt-5 p-5 md:p-5"
+    >
+      <!-- Text -->
+      <div class="w-full md:w-[50%] md:px-20 mb-6 md:mb-0">
+        <h1 class="text-xl md:text-4xl font-bold text-white mb-4">
+          Mealboy.nl – Box of Yumminess
+        </h1>
+        <p class="text-sm md:text-lg text-white/90 mb-6">
+          Fresh, affordable, and delicious Indian meals delivered to your
+          doorstep in Eindhoven.
+        </p>
+        <div class="space-y-2 mb-6">
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-green-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+            <span class="text-sm md:text-base text-white/90"
+              >Authentic Indian flavors</span
+            >
+          </div>
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-green-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+            <span class="text-sm md:text-base text-white/90"
+              >High-quality meals at affordable prices</span
+            >
+          </div>
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-green-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+            <span class="text-sm md:text-base text-white/90"
+              >Always delivered hot and on time</span
+            >
+          </div>
         </div>
-        <!-- Image -->
-        <div class="w-full md:w-[50%] flex justify-center items-center">
-            <img src="https://imgs.search.brave.com/EGT_S51ZQmdjgq1seoojzfWy9HhUmH43iWRgAzvuxfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbmRpYW4tZm9v/ZC1pbmRpYW4tY3Vp/c2luZS1kaXNoZXMt/dG9wLXZpZXdfMTAy/Mzc1LTExOTYuanBn/P3NlbXQ9YWlzX2h5/YnJpZA" alt="Indian Food" class="h-48 w-full md:h-72 md:w-96 object-cover rounded-lg">
-        </div>
+        <button
+          class="w-full md:w-auto px-6 py-3 bg-green-400 text-white text-sm md:text-base font-medium rounded-full hover:bg-green-500 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+          onclick="scrollToMenu()"
+        >
+          View Menu
+        </button>
+      </div>
+      <!-- Image -->
+      <div class="w-full md:w-[50%] flex justify-center items-center">
+        <img
+          src="https://imgs.search.brave.com/EGT_S51ZQmdjgq1seoojzfWy9HhUmH43iWRgAzvuxfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbmRpYW4tZm9v/ZC1pbmRpYW4tY3Vp/c2luZS1kaXNoZXMt/dG9wLXZpZXdfMTAy/Mzc1LTExOTYuanBn/P3NlbXQ9YWlzX2h5/YnJpZA"
+          alt="Indian Food"
+          class="h-48 w-full md:h-72 md:w-96 object-cover rounded-lg"
+        />
+      </div>
     </section>
 
     <!-- Second Section -->
@@ -402,44 +468,65 @@
       </div>
      </section> -->
 
-
     <div class="grid-container" id="menuSection"></div>
-    
+
     <!-- About Us Section -->
     <section class="py-8 md:py-16 bg-gray-50" id="about">
       <div class="container mx-auto px-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">About Us</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800"
+        >
+          About Us
+        </h2>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
+        >
           <div class="space-y-4 md:space-y-6 order-2 md:order-1">
-            <h3 class="text-xl md:text-2xl font-semibold text-gray-800">Welcome to Mealboy.nl</h3>
+            <h3 class="text-xl md:text-2xl font-semibold text-gray-800">
+              Welcome to Mealboy.nl
+            </h3>
             <p class="text-sm md:text-base text-gray-600 leading-relaxed">
-              No order is too small—we're here to serve everyone! Whether it's a single meal or a family feast, we ensure every order is delivered hot and fresh between 6 and 7 PM, right on time, every time
+              No order is too small—we're here to serve everyone! Whether it's a
+              single meal or a family feast, we ensure every order is delivered
+              hot and fresh between 6 and 7 PM, right on time, every time
             </p>
-            <p>We know life gets busy—whether you're a working mom juggling responsibilities or a busy professional with no time to cook, we're here to make your evenings easier. Let us take care of dinner so you can take a moment for yourself. Serving you isn't just our business—it's our motto! 😊</p>
+            <p>
+              We know life gets busy—whether you're a working mom juggling
+              responsibilities or a busy professional with no time to cook,
+              we're here to make your evenings easier. Let us take care of
+              dinner so you can take a moment for yourself. Serving you isn't
+              just our business—it's our motto! 😊
+            </p>
             <div class="space-y-3 md:space-y-4">
               <div class="flex items-center space-x-3">
                 <i class="ri-check-line text-green-500 text-lg md:text-xl"></i>
-                <span class="text-sm md:text-base text-gray-700">Fresh ingredients sourced daily</span>
+                <span class="text-sm md:text-base text-gray-700"
+                  >Fresh ingredients sourced daily</span
+                >
               </div>
               <div class="flex items-center space-x-3">
                 <i class="ri-check-line text-green-500 text-lg md:text-xl"></i>
-                <span class="text-sm md:text-base text-gray-700">Authentic Indian recipes</span>
+                <span class="text-sm md:text-base text-gray-700"
+                  >Authentic Indian recipes</span
+                >
               </div>
               <div class="flex items-center space-x-3">
                 <i class="ri-check-line text-green-500 text-lg md:text-xl"></i>
-                <span class="text-sm md:text-base text-gray-700">Fast and reliable delivery</span>
+                <span class="text-sm md:text-base text-gray-700"
+                  >Fast and reliable delivery</span
+                >
               </div>
             </div>
           </div>
-          <div class="relative flex justify-center md:justify-end order-1 md:order-2 mb-6 md:mb-0">
+          <div
+            class="relative flex justify-center md:justify-end order-1 md:order-2 mb-6 md:mb-0"
+          >
             <div class="relative">
-              <img src="./assets/bg-logo.png" alt="About Us" class="rounded-lg shadow-xl w-20 h-20 md:w-32 md:h-32 object-cover">
-              <div class="absolute -bottom-3 -right-3 bg-white p-2 rounded-lg shadow-lg">
-                <div class="text-center">
-                  <p class="text-base md:text-xl font-bold text-green-600">5+</p>
-                  <p class="text-[8px] md:text-xs text-gray-600">Years of Service</p>
-                </div>
-              </div>
+              <img
+                src="./assets/mealboy.png"
+                alt="About Us"
+                class="rounded-lg shadow-xl w-52 h-52 md:w-96 md:h-96"
+              />
             </div>
           </div>
         </div>
@@ -449,96 +536,179 @@
     <!-- FAQ Section -->
     <section class="py-8 md:py-16" id="faq">
       <div class="container mx-auto px-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Frequently Asked Questions</h2>
+        <h2
+          class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800"
+        >
+          Frequently Asked Questions
+        </h2>
         <div class="max-w-3xl mx-auto space-y-4 md:space-y-6">
           <!-- FAQ Item 1 -->
           <div class="border border-gray-200 rounded-lg">
-            <button class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none" onclick="toggleFAQ(1)">
+            <button
+              class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none"
+              onclick="toggleFAQ(1)"
+            >
               <div class="flex items-center justify-between">
-                <span class="font-semibold text-gray-800 text-sm md:text-base">What kind of food does Mealboy.nl offer?</span>
-                <i class="ri-arrow-down-s-line transition-transform text-lg md:text-xl" id="faq-arrow-1"></i>
+                <span class="font-semibold text-gray-800 text-sm md:text-base"
+                  >What kind of food does Mealboy.nl offer?</span
+                >
+                <i
+                  class="ri-arrow-down-s-line transition-transform text-lg md:text-xl"
+                  id="faq-arrow-1"
+                ></i>
               </div>
             </button>
             <div class="hidden px-4 md:px-6 pb-3 md:pb-4" id="faq-content-1">
-              <p class="text-gray-600 text-sm md:text-base">We serve fresh, home-style Indian meals packed with authentic flavors. Our menu includes vegetarian, non-vegetarian, and vegan options, Currently offering limited menu but more will be added soon.</p>
+              <p class="text-gray-600 text-sm md:text-base">
+                We serve fresh, home-style Indian meals packed with authentic
+                flavors. Our menu includes vegetarian, non-vegetarian, and vegan
+                options, Currently offering limited menu but more will be added
+                soon.
+              </p>
             </div>
           </div>
 
           <!-- FAQ Item 2 -->
           <div class="border border-gray-200 rounded-lg">
-            <button class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none" onclick="toggleFAQ(2)">
+            <button
+              class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none"
+              onclick="toggleFAQ(2)"
+            >
               <div class="flex items-center justify-between">
-                <span class="font-semibold text-gray-800 text-sm md:text-base">Is there a minimum order requirement?</span>
-                <i class="ri-arrow-down-s-line transition-transform text-lg md:text-xl" id="faq-arrow-2"></i>
+                <span class="font-semibold text-gray-800 text-sm md:text-base"
+                  >Is there a minimum order requirement?</span
+                >
+                <i
+                  class="ri-arrow-down-s-line transition-transform text-lg md:text-xl"
+                  id="faq-arrow-2"
+                ></i>
               </div>
             </button>
             <div class="hidden px-4 md:px-6 pb-3 md:pb-4" id="faq-content-2">
-              <p class="text-gray-600 text-sm md:text-base">No! At Mealboy.nl, no order is too small. Whether you need just one meal or multiple, we're happy to serve you.</p>
+              <p class="text-gray-600 text-sm md:text-base">
+                No! At Mealboy.nl, no order is too small. Whether you need just
+                one meal or multiple, we're happy to serve you.
+              </p>
             </div>
           </div>
 
           <!-- FAQ Item 3 -->
           <div class="border border-gray-200 rounded-lg">
-            <button class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none" onclick="toggleFAQ(3)">
+            <button
+              class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none"
+              onclick="toggleFAQ(3)"
+            >
               <div class="flex items-center justify-between">
-                <span class="font-semibold text-gray-800 text-sm md:text-base">What time do you deliver?</span>
-                <i class="ri-arrow-down-s-line transition-transform text-lg md:text-xl" id="faq-arrow-3"></i>
+                <span class="font-semibold text-gray-800 text-sm md:text-base"
+                  >What time do you deliver?</span
+                >
+                <i
+                  class="ri-arrow-down-s-line transition-transform text-lg md:text-xl"
+                  id="faq-arrow-3"
+                ></i>
               </div>
             </button>
             <div class="hidden px-4 md:px-6 pb-3 md:pb-4" id="faq-content-3">
-              <p class="text-gray-600 text-sm md:text-base">We deliver all orders between 6 and 7 PM, ensuring your meal arrives hot and fresh, right when you need it.</p>
+              <p class="text-gray-600 text-sm md:text-base">
+                We deliver all orders between 6 and 7 PM, ensuring your meal
+                arrives hot and fresh, right when you need it.
+              </p>
             </div>
           </div>
 
           <!-- FAQ Item 4 -->
           <div class="border border-gray-200 rounded-lg">
-            <button class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none" onclick="toggleFAQ(4)">
+            <button
+              class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none"
+              onclick="toggleFAQ(4)"
+            >
               <div class="flex items-center justify-between">
-                <span class="font-semibold text-gray-800 text-sm md:text-base">How do I place an order?</span>
-                <i class="ri-arrow-down-s-line transition-transform text-lg md:text-xl" id="faq-arrow-4"></i>
+                <span class="font-semibold text-gray-800 text-sm md:text-base"
+                  >How do I place an order?</span
+                >
+                <i
+                  class="ri-arrow-down-s-line transition-transform text-lg md:text-xl"
+                  id="faq-arrow-4"
+                ></i>
               </div>
             </button>
             <div class="hidden px-4 md:px-6 pb-3 md:pb-4" id="faq-content-4">
-              <p class="text-gray-600 text-sm md:text-base">You can order easily through our website. Just pick your meal, place your order, and we'll handle the rest!</p>
+              <p class="text-gray-600 text-sm md:text-base">
+                You can order easily through our website. Just pick your meal,
+                place your order, and we'll handle the rest!
+              </p>
             </div>
           </div>
 
           <!-- FAQ Item 5 -->
           <div class="border border-gray-200 rounded-lg">
-            <button class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none" onclick="toggleFAQ(5)">
+            <button
+              class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none"
+              onclick="toggleFAQ(5)"
+            >
               <div class="flex items-center justify-between">
-                <span class="font-semibold text-gray-800 text-sm md:text-base">Do you offer meal subscriptions?</span>
-                <i class="ri-arrow-down-s-line transition-transform text-lg md:text-xl" id="faq-arrow-5"></i>
+                <span class="font-semibold text-gray-800 text-sm md:text-base"
+                  >Do you offer meal subscriptions?</span
+                >
+                <i
+                  class="ri-arrow-down-s-line transition-transform text-lg md:text-xl"
+                  id="faq-arrow-5"
+                ></i>
               </div>
             </button>
             <div class="hidden px-4 md:px-6 pb-3 md:pb-4" id="faq-content-5">
-              <p class="text-gray-600 text-sm md:text-base">As of now, we are not offering subscriptions, we will update you all soon</p>
+              <p class="text-gray-600 text-sm md:text-base">
+                As of now, we are not offering subscriptions, we will update you
+                all soon
+              </p>
             </div>
           </div>
 
           <!-- FAQ Item 6 -->
           <div class="border border-gray-200 rounded-lg">
-            <button class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none" onclick="toggleFAQ(6)">
+            <button
+              class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none"
+              onclick="toggleFAQ(6)"
+            >
               <div class="flex items-center justify-between">
-                <span class="font-semibold text-gray-800 text-sm md:text-base">Do you provide bulk or corporate orders?</span>
-                <i class="ri-arrow-down-s-line transition-transform text-lg md:text-xl" id="faq-arrow-6"></i>
+                <span class="font-semibold text-gray-800 text-sm md:text-base"
+                  >Do you provide bulk or corporate orders?</span
+                >
+                <i
+                  class="ri-arrow-down-s-line transition-transform text-lg md:text-xl"
+                  id="faq-arrow-6"
+                ></i>
               </div>
             </button>
             <div class="hidden px-4 md:px-6 pb-3 md:pb-4" id="faq-content-6">
-              <p class="text-gray-600 text-sm md:text-base">For bulk orders please, send an email to us (customerservice@mealboy.nl).</p>
+              <p class="text-gray-600 text-sm md:text-base">
+                For bulk orders please, send an email to us
+                (customerservice@mealboy.nl).
+              </p>
             </div>
           </div>
 
           <!-- FAQ Item 7 -->
           <div class="border border-gray-200 rounded-lg">
-            <button class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none" onclick="toggleFAQ(7)">
+            <button
+              class="w-full px-4 md:px-6 py-3 md:py-4 text-left focus:outline-none"
+              onclick="toggleFAQ(7)"
+            >
               <div class="flex items-center justify-between">
-                <span class="font-semibold text-gray-800 text-sm md:text-base">How can I reach you for support?</span>
-                <i class="ri-arrow-down-s-line transition-transform text-lg md:text-xl" id="faq-arrow-7"></i>
+                <span class="font-semibold text-gray-800 text-sm md:text-base"
+                  >How can I reach you for support?</span
+                >
+                <i
+                  class="ri-arrow-down-s-line transition-transform text-lg md:text-xl"
+                  id="faq-arrow-7"
+                ></i>
               </div>
             </button>
             <div class="hidden px-4 md:px-6 pb-3 md:pb-4" id="faq-content-7">
-              <p class="text-gray-600 text-sm md:text-base">You can email us at customerservice@mealboy.nl or call us at +31657292716. </p>
+              <p class="text-gray-600 text-sm md:text-base">
+                You can email us at customerservice@mealboy.nl or call us at
+                +31657292716.
+              </p>
             </div>
           </div>
         </div>
@@ -548,17 +718,25 @@
     <!-- Contact Us Section -->
     <section class="py-8 md:py-16 bg-gray-50" id="contact">
       <div class="container mx-auto px-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">Contact Us</h2>
+        <h2
+          class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800"
+        >
+          Contact Us
+        </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           <!-- Contact Information -->
           <div class="space-y-6 p-6 bg-white rounded-lg shadow-md">
-            <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-4">Get in Touch</h3>
+            <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
+              Get in Touch
+            </h3>
             <div class="space-y-4">
               <div class="flex items-start space-x-4">
                 <i class="ri-map-pin-line text-green-600 text-xl mt-1"></i>
                 <div>
                   <h4 class="font-medium text-gray-800">Address</h4>
-                  <p class="text-gray-600 text-sm md:text-base">Eindhoven, Netherlands</p>
+                  <p class="text-gray-600 text-sm md:text-base">
+                    Eindhoven, Netherlands
+                  </p>
                 </div>
               </div>
               <div class="flex items-start space-x-4">
@@ -572,14 +750,18 @@
                 <i class="ri-mail-line text-green-600 text-xl mt-1"></i>
                 <div>
                   <h4 class="font-medium text-gray-800">Email</h4>
-                  <p class="text-gray-600 text-sm md:text-base">customerservice@mealboy.nl</p>
+                  <p class="text-gray-600 text-sm md:text-base">
+                    customerservice@mealboy.nl
+                  </p>
                 </div>
               </div>
               <div class="flex items-start space-x-4">
                 <i class="ri-time-line text-green-600 text-xl mt-1"></i>
                 <div>
                   <h4 class="font-medium text-gray-800">Business Hours</h4>
-                  <p class="text-gray-600 text-sm md:text-base">Delivery: 6 PM - 7 PM<br>Customer Service: 10 AM - 8 PM</p>
+                  <p class="text-gray-600 text-sm md:text-base">
+                    Delivery: 6 PM - 7 PM<br />Customer Service: 10 AM - 8 PM
+                  </p>
                 </div>
               </div>
             </div>
@@ -587,25 +769,69 @@
 
           <!-- Contact Form -->
           <div class="p-6 bg-white rounded-lg shadow-md">
-            <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-6">Send us a Message</h3>
+            <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-6">
+              Send us a Message
+            </h3>
             <form class="space-y-4" onsubmit="submitContactForm(event)">
               <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm">
+                <label
+                  for="name"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm"
+                />
               </div>
               <div>
-                <label for="contactEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" id="contactEmail" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm">
+                <label
+                  for="contactEmail"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="email"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm"
+                />
               </div>
               <div>
-                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                <input type="text" id="subject" name="subject" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm">
+                <label
+                  for="subject"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Subject</label
+                >
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm"
+                />
               </div>
               <div>
-                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm"></textarea>
+                <label
+                  for="message"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Message</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm"
+                ></textarea>
               </div>
-              <button type="submit" class="w-full text-white py-2 px-6 rounded-lg hover:bg-green-600 transition-colors duration-200 text-sm md:text-base font-medium"
+              <button
+                type="submit"
+                class="w-full text-white py-2 px-6 rounded-lg hover:bg-green-600 transition-colors duration-200 text-sm md:text-base font-medium"
                 style="background-color: #077968"
               >
                 Send Message
@@ -776,30 +1002,70 @@
       <div class="postal-modal-content">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-2xl font-bold text-gray-800">Delivery Information</h3>
-          <button onclick="closePostalModal()" class="text-gray-500 hover:text-gray-700">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          <button
+            onclick="closePostalModal()"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
             </svg>
           </button>
         </div>
-        
+
         <div id="postalCodeSection">
           <div class="mb-4">
-            <label for="postalCode" class="block text-sm font-medium text-gray-700 mb-1">Enter Your Postal Code</label>
-            <input type="text" id="postalCode" placeholder="Enter postal code" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
-            <div id="postalError" class="error-message hidden">We're expanding! While we don't deliver to your area yet, we'd love to notify you when we do.</div>
+            <label
+              for="postalCode"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Enter Your Postal Code</label
+            >
+            <input
+              type="text"
+              id="postalCode"
+              placeholder="Enter postal code"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+            />
+            <div id="postalError" class="error-message hidden">
+              We're expanding! While we don't deliver to your area yet, we'd
+              love to notify you when we do.
+            </div>
           </div>
-          <button onclick="validatePostalCode()" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+          <button
+            onclick="validatePostalCode()"
+            class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          >
             Validate
           </button>
         </div>
 
         <div id="emailSection" class="hidden">
           <div class="mb-4">
-            <label for="userEmail" class="block text-sm font-medium text-gray-700 mb-1">Be the first to know when we arrive in your area!</label>
-            <input type="email" id="userEmail" placeholder="your@email.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors">
+            <label
+              for="userEmail"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Be the first to know when we arrive in your area!</label
+            >
+            <input
+              type="email"
+              id="userEmail"
+              placeholder="your@email.com"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+            />
           </div>
-          <button onclick="submitEmail()" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+          <button
+            onclick="submitEmail()"
+            class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          >
             Keep Me Updated
           </button>
         </div>
@@ -816,10 +1082,11 @@
         {
           title: "Veg Meal",
           cost: 10,
-          description: "3 chapati, 200 ml rice, 200 gm dal, 150 gm veg, 50 gm salad all value are approximate with 10% variance",
+          description:
+            "3 chapati, 200 ml rice, 200 gm dal, 150 gm veg, 50 gm salad all value are approximate with 10% variance",
           image:
             "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg",
-            active: true,
+          active: true,
         },
         {
           title: "Non-Veg Meal",
@@ -827,7 +1094,7 @@
           description: "Non-Veg Meal",
           image:
             "https://imgs.search.brave.com/Tv76Axpepms2Xw-WGyIYfcepvBEBlmC9Ha66wIZzVz4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9i/L2JhL0luZGlhbl9U/aGFsaS5qcGc",
-            active: false,
+          active: false,
         },
         {
           title: "Chicken Meal",
@@ -835,7 +1102,7 @@
           description: "Chicken Meal",
           image:
             "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg",
-            active: false,
+          active: false,
         },
         {
           title: "Fish Meal",
@@ -843,25 +1110,25 @@
           description: "Fish Meal",
           image:
             "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg",
-            active: false,
+          active: false,
         },
         {
           title: "Special menu ",
           cost: 30,
           image:
             "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg",
-            active: false,
+          active: false,
         },
         {
           title: "Special menu 2",
           cost: 35,
           image:
             "https://upload.wikimedia.org/wikipedia/commons/e/ef/Tradtional_Thali.jpg",
-            active: false,
+          active: false,
         },
       ];
 
-      const validPostalCode = [302021,302022]
+      const validPostalCode = [302021, 302022];
       function renderMenu() {
         const container = document.getElementById("menuSection");
         menuItems.forEach((item) => {
@@ -870,30 +1137,58 @@
           gridItem.setAttribute("data-title", item.title);
           gridItem.setAttribute("data-cost", item.cost);
           gridItem.innerHTML = `
-                <div class="${item.active !== false ? 'bg-white' : 'bg-gray-100'} text-start p-1 md:p-2 rounded-lg shadow transition-transform ${item.active !== false ? 'hover:scale-105' : 'opacity-60 cursor-not-allowed'}">
+                <div class="${
+                  item.active !== false ? "bg-white" : "bg-gray-100"
+                } text-start p-1 md:p-2 rounded-lg shadow transition-transform ${
+            item.active !== false
+              ? "hover:scale-105"
+              : "opacity-60 cursor-not-allowed"
+          }">
                     <div class="item-image overflow-hidden rounded-lg relative">
-                        <img src="${item.image}" alt="${item.title}" class="w-full h-24 h-40 md:h-48 object-cover ${item.active === false ? 'grayscale' : ''}">
-                        ${item.active === false ? '<div class="absolute inset-0 bg-gray-500/20 flex items-center justify-center"><span class="bg-gray-800/75 text-white px-3 py-1 rounded-full text-sm">Currently Unavailable</span></div>' : ''}
+                        <img src="${item.image}" alt="${
+            item.title
+          }" class="w-full h-24 h-40 md:h-48 object-cover ${
+            item.active === false ? "grayscale" : ""
+          }">
+                        ${
+                          item.active === false
+                            ? '<div class="absolute inset-0 bg-gray-500/20 flex items-center justify-center"><span class="bg-gray-800/75 text-white px-3 py-1 rounded-full text-sm">Currently Unavailable</span></div>'
+                            : ""
+                        }
                     </div>
-                    <div class="flex items-center justify-between price p-2 text-xl font-semibold ${item.active === false ? 'text-gray-500' : 'text-black-600'}">
-                        <h3 class="text-lg md:text-base font-semibold ${item.active === false ? 'text-gray-500' : 'text-gray-800'}">${item.title}</h3>
+                    <div class="flex items-center justify-between price p-2 text-xl font-semibold ${
+                      item.active === false ? "text-gray-500" : "text-black-600"
+                    }">
+                        <h3 class="text-lg md:text-base font-semibold ${
+                          item.active === false
+                            ? "text-gray-500"
+                            : "text-gray-800"
+                        }">${item.title}</h3>
                         <div class="tooltip-container">
                             $${item.cost}
-                            ${item.description ? `
+                            ${
+                              item.description
+                                ? `
                                 <i class="ri-information-line cursor-pointer">
                                     <span class="tooltip">${item.description}</span>
                                 </i>
-                            ` : ''}
+                            `
+                                : ""
+                            }
                         </div>
                     </div>
                     <div class="item-controls flex items-center justify-start space-x-2 sm:space-x-3 my-2 px-2">
-                        ${item.active !== false ? `
+                        ${
+                          item.active !== false
+                            ? `
                             <button onclick="updateQuantity('${item.title}', ${item.cost}, -1)" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-0.5 px-2 rounded-full text-sm">-</button>
                             <span id="quantity-${item.title}" class="text-base font-medium">0</span>
                             <button onclick="updateQuantity('${item.title}', ${item.cost}, 1)" class="bg-blue-500 hover:bg-gray-300 text-white font-medium py-0.5 px-2 rounded-full text-sm shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200">+</button>
-                        ` : `
+                        `
+                            : `
                             <span class="text-sm text-gray-500">Not available</span>
-                        `}
+                        `
+                        }
                     </div>
                 </div>
             `;
@@ -903,20 +1198,24 @@
       function updateQuantity(title, cost, change) {
         if (change > 0) {
           // Check if we already have a validated postal code
-          const validatedPostalCode = localStorage.getItem('validatedPostalCode');
+          const validatedPostalCode = localStorage.getItem(
+            "validatedPostalCode"
+          );
           if (validatedPostalCode) {
             // If we have a validated postal code, add item directly
             addItemToCart(title, cost, change);
             return;
           }
-          
+
           // If no validated postal code, show the modal
           currentItemToAdd = { title, cost, change };
-          document.getElementById('postalModal').style.display = 'flex';
-          document.getElementById('postalCodeSection').classList.remove('hidden');
-          document.getElementById('emailSection').classList.add('hidden');
-          document.getElementById('postalError').classList.add('hidden');
-          document.getElementById('postalCode').value = '';
+          document.getElementById("postalModal").style.display = "flex";
+          document
+            .getElementById("postalCodeSection")
+            .classList.remove("hidden");
+          document.getElementById("emailSection").classList.add("hidden");
+          document.getElementById("postalError").classList.add("hidden");
+          document.getElementById("postalCode").value = "";
           return;
         }
 
@@ -940,7 +1239,7 @@
           order.push({ title, cost, quantity: change });
         }
         document.getElementById(`quantity-${title}`).innerText =
-          order.find(item => item.title === title)?.quantity || 1;
+          order.find((item) => item.title === title)?.quantity || 1;
         calculateTotal();
       }
       function calculateTotal() {
@@ -951,11 +1250,15 @@
         document.getElementById("totalPrice").innerText = total;
       }
       function payNow() {
-        const validatedPostalCode = localStorage.getItem('validatedPostalCode');
+        const validatedPostalCode = localStorage.getItem("validatedPostalCode");
         if (validatedPostalCode) {
-          document.getElementById('paymentPostalCode').value = validatedPostalCode;
+          document.getElementById("paymentPostalCode").value =
+            validatedPostalCode;
         } else {
-          showSnackbar('Please add items to your cart first and validate your postal code.', 'error');
+          showSnackbar(
+            "Please add items to your cart first and validate your postal code.",
+            "error"
+          );
           return;
         }
         document.getElementById("paymentPopup").style.display = "flex";
@@ -963,91 +1266,105 @@
       function closePopup() {
         document.getElementById("paymentPopup").style.display = "none"; // Hide the popup
       }
-      function showSnackbar(message, type = 'default') {
-        const snackbar = document.getElementById('snackbar');
+      function showSnackbar(message, type = "default") {
+        const snackbar = document.getElementById("snackbar");
         snackbar.textContent = message;
-        snackbar.className = 'snackbar';
-        
-        if (type === 'error') {
-          snackbar.classList.add('error');
-        } else if (type === 'success') {
-          snackbar.classList.add('success');
+        snackbar.className = "snackbar";
+
+        if (type === "error") {
+          snackbar.classList.add("error");
+        } else if (type === "success") {
+          snackbar.classList.add("success");
         }
-        
-        snackbar.classList.add('show');
-        
+
+        snackbar.classList.add("show");
+
         // Hide after 3 seconds
         setTimeout(() => {
-          snackbar.classList.remove('show');
+          snackbar.classList.remove("show");
         }, 3000);
       }
       function submitPayment() {
-        const postalCode = document.getElementById('paymentPostalCode').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const cardNumber = document.getElementById('cardNumber').value;
-        const expiryDate = document.getElementById('expiryDate').value;
-        const cvv = document.getElementById('cvv').value;
-        const address = document.getElementById('address').value;
+        const postalCode = document.getElementById("paymentPostalCode").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const cardNumber = document.getElementById("cardNumber").value;
+        const expiryDate = document.getElementById("expiryDate").value;
+        const cvv = document.getElementById("cvv").value;
+        const address = document.getElementById("address").value;
 
         // Validate required fields
-        if (!email || !phone || !postalCode || !cardNumber || !expiryDate || !cvv || !address) {
-          showSnackbar('Please fill in all required fields', 'error');
+        if (
+          !email ||
+          !phone ||
+          !postalCode ||
+          !cardNumber ||
+          !expiryDate ||
+          !cvv ||
+          !address
+        ) {
+          showSnackbar("Please fill in all required fields", "error");
           return;
         }
 
         // Validate postal code
         if (!validPostalCode.includes(Number(postalCode))) {
-          showSnackbar('Invalid postal code. Please enter a valid postal code.', 'error');
+          showSnackbar(
+            "Invalid postal code. Please enter a valid postal code.",
+            "error"
+          );
           return;
         }
 
         // Store validated postal code if it's not already stored
-        if (!localStorage.getItem('validatedPostalCode')) {
-          localStorage.setItem('validatedPostalCode', postalCode);
+        if (!localStorage.getItem("validatedPostalCode")) {
+          localStorage.setItem("validatedPostalCode", postalCode);
         }
 
         // If all validations pass, submit payment
-        showSnackbar('Payment submitted successfully!', 'success');
-        
+        showSnackbar("Payment submitted successfully!", "success");
+
         // Clear the cart after successful payment
         order = [];
-        document.querySelectorAll('[id^="quantity-"]').forEach(element => {
-          element.innerText = '0';
+        document.querySelectorAll('[id^="quantity-"]').forEach((element) => {
+          element.innerText = "0";
         });
         calculateTotal();
-        
+
         closePopup();
       }
       function closePostalModal() {
-        document.getElementById('postalModal').style.display = 'none';
+        document.getElementById("postalModal").style.display = "none";
         currentItemToAdd = null;
       }
       function validatePostalCode() {
-        const postalCode = document.getElementById('postalCode').value;
+        const postalCode = document.getElementById("postalCode").value;
         if (validPostalCode.includes(Number(postalCode))) {
           // Store the validated postal code
-          localStorage.setItem('validatedPostalCode', postalCode);
+          localStorage.setItem("validatedPostalCode", postalCode);
           updatePostalCodeDisplay();
-          
+
           // Add item to cart
           const { title, cost, change } = currentItemToAdd;
           addItemToCart(title, cost, change);
           closePostalModal();
         } else {
           // Invalid postal code, show email section
-          document.getElementById('postalError').classList.remove('hidden');
-          document.getElementById('postalCodeSection').classList.add('hidden');
-          document.getElementById('emailSection').classList.remove('hidden');
+          document.getElementById("postalError").classList.remove("hidden");
+          document.getElementById("postalCodeSection").classList.add("hidden");
+          document.getElementById("emailSection").classList.remove("hidden");
         }
       }
       function submitEmail() {
-        const email = document.getElementById('userEmail').value;
+        const email = document.getElementById("userEmail").value;
         if (email) {
-          showSnackbar('Thank you! We will notify you when we start delivering to your area.', 'success');
+          showSnackbar(
+            "Thank you! We will notify you when we start delivering to your area.",
+            "success"
+          );
           closePostalModal();
         } else {
-          showSnackbar('Please enter a valid email address', 'error');
+          showSnackbar("Please enter a valid email address", "error");
         }
       }
 
@@ -1055,57 +1372,59 @@
       function toggleFAQ(id) {
         const content = document.getElementById(`faq-content-${id}`);
         const arrow = document.getElementById(`faq-arrow-${id}`);
-        
+
         // Close all other FAQs
-        document.querySelectorAll('[id^="faq-content-"]').forEach(item => {
+        document.querySelectorAll('[id^="faq-content-"]').forEach((item) => {
           if (item.id !== `faq-content-${id}`) {
-            item.classList.add('hidden');
+            item.classList.add("hidden");
           }
         });
-        
-        document.querySelectorAll('[id^="faq-arrow-"]').forEach(item => {
+
+        document.querySelectorAll('[id^="faq-arrow-"]').forEach((item) => {
           if (item.id !== `faq-arrow-${id}`) {
-            item.style.transform = 'rotate(0deg)';
+            item.style.transform = "rotate(0deg)";
           }
         });
 
         // Toggle current FAQ
-        content.classList.toggle('hidden');
-        arrow.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        content.classList.toggle("hidden");
+        arrow.style.transform = content.classList.contains("hidden")
+          ? "rotate(0deg)"
+          : "rotate(180deg)";
       }
 
       function scrollToMenu() {
-        document.getElementById('menuSection').scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
+        document.getElementById("menuSection").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
         });
       }
 
       // Add function to clear postal code (useful for testing or logging out)
       function clearPostalCode() {
-        localStorage.removeItem('validatedPostalCode');
+        localStorage.removeItem("validatedPostalCode");
         updatePostalCodeDisplay();
-        showSnackbar('Postal code removed successfully', 'success');
+        showSnackbar("Postal code removed successfully", "success");
       }
 
       // Function to update postal code display
       function updatePostalCodeDisplay() {
-        const postalCodeDisplay = document.getElementById('postalCodeDisplay');
-        const currentPostalCode = document.getElementById('currentPostalCode');
-        const validatedPostalCode = localStorage.getItem('validatedPostalCode');
-        
+        const postalCodeDisplay = document.getElementById("postalCodeDisplay");
+        const currentPostalCode = document.getElementById("currentPostalCode");
+        const validatedPostalCode = localStorage.getItem("validatedPostalCode");
+
         if (validatedPostalCode) {
           currentPostalCode.textContent = validatedPostalCode;
-          postalCodeDisplay.classList.remove('hidden');
-          postalCodeDisplay.classList.add('flex');
+          postalCodeDisplay.classList.remove("hidden");
+          postalCodeDisplay.classList.add("flex");
         } else {
-          postalCodeDisplay.classList.add('hidden');
-          postalCodeDisplay.classList.remove('flex');
+          postalCodeDisplay.classList.add("hidden");
+          postalCodeDisplay.classList.remove("flex");
         }
       }
 
       // Update postal code display when page loads
-      document.addEventListener('DOMContentLoaded', updatePostalCodeDisplay);
+      document.addEventListener("DOMContentLoaded", updatePostalCodeDisplay);
 
       // Render the menu items on page load
       renderMenu();
