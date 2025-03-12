@@ -847,18 +847,20 @@
         Total: <span id="totalPrice">0</span>
       </div>
       <button
-        class="justify-center flex items-center text-white py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+        id="orderButton"
+        class="justify-center flex items-center text-white py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         style="background-color: #fd6e04"
         onclick="payNow()"
+        disabled
       >
         Order Now
       </button>
     </div>
 
     <div class="popup" id="paymentPopup">
-      <div class="popup-content">
+      <div class="popup-content max-w-5xl w-full">
         <div class="flex justify-between items-center mb-6">
-          <h3 class="text-2xl font-bold text-gray-800">Payment Details</h3>
+          <h3 class="text-2xl font-bold text-gray-800">Checkout</h3>
           <button
             onclick="closePopup()"
             class="text-gray-500 hover:text-gray-700"
@@ -878,118 +880,107 @@
             </svg>
           </button>
         </div>
-        <div class="space-y-4">
-          <div>
-            <label
-              for="email"
-              class="block text-sm font-medium text-gray-700 mb-1"
-              >Email</label
-            >
-            <input
-              type="email"
-              id="email"
-              placeholder="your@email.com"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-            />
-          </div>
-          <div>
-            <label
-              for="phone"
-              class="block text-sm font-medium text-gray-700 mb-1"
-              >Phone Number</label
-            >
-            <input
-              type="tel"
-              id="phone"
-              placeholder="123-456-7890"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-            />
-          </div>
-          <div>
-            <label
-              for="paymentPostalCode"
-              class="block text-sm font-medium text-gray-700 mb-1"
-              >Postal Code</label
-            >
-            <input
-              type="text"
-              id="paymentPostalCode"
-              placeholder="Enter postal code"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-            />
-          </div>
 
-          <div>
-            <label
-              for="address"
-              class="block text-sm font-medium text-gray-700 mb-1"
-              >Delivery Address</label
-            >
-            <textarea
-              id="address"
-              placeholder="Enter your complete delivery address"
-              rows="2"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none"
-            ></textarea>
-          </div>
-        </div>
-
-        <div class="space-y-4">
-          <!-- <div>
-            <label
-              for="cardNumber"
-              class="block text-sm font-medium text-gray-700 mb-1"
-              >Card Number</label
-            >
-            <input
-              type="text"
-              id="cardNumber"
-              placeholder="1234 5678 9012 3456"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-            />
-          </div> -->
-
-          <!-- <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Left Column - Customer Details -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-semibold text-gray-800 mb-4">
+              Customer Details
+            </h4>
             <div>
               <label
-                for="expiryDate"
+                for="email"
                 class="block text-sm font-medium text-gray-700 mb-1"
-                >Expiry Date</label
+                >Email</label
               >
               <input
-                type="text"
-                id="expiryDate"
-                placeholder="MM/YY"
+                type="email"
+                id="email"
+                placeholder="your@email.com"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
               />
             </div>
             <div>
               <label
-                for="cvv"
+                for="phone"
                 class="block text-sm font-medium text-gray-700 mb-1"
-                >CVV</label
+                >Phone Number</label
               >
               <input
-                type="text"
-                id="cvv"
-                placeholder="123"
+                type="tel"
+                id="phone"
+                placeholder="123-456-7890"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
               />
             </div>
-          </div> -->
+            <div>
+              <label
+                for="paymentPostalCode"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Postal Code</label
+              >
+              <input
+                type="text"
+                id="paymentPostalCode"
+                placeholder="Enter postal code"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+              />
+            </div>
+            <div>
+              <label
+                for="address"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Delivery Address</label
+              >
+              <textarea
+                id="address"
+                placeholder="Enter your complete delivery address"
+                rows="2"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Right Column - Cart Summary -->
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <h4 class="text-lg font-semibold text-gray-800 mb-4">
+              Order Summary
+            </h4>
+            <div class="space-y-4">
+              <div id="cartSummaryItems" class="space-y-3">
+                <!-- Cart items will be inserted here by JavaScript -->
+              </div>
+              <div class="border-t border-gray-200 pt-4 space-y-2">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-600">Subtotal</span>
+                  <span class="font-medium" id="summarySubtotal">€0.00</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-600">Delivery Fee</span>
+                  <span class="font-medium" id="summaryDeliveryFee">€1.80</span>
+                </div>
+                <div
+                  class="flex justify-between text-base font-semibold border-t border-gray-200 pt-2 mt-2"
+                >
+                  <span>Total</span>
+                  <span id="summaryTotal">€0.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="mt-6 space-y-3">
           <button
             onclick="submitPayment()"
-            class="w-full text-white py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+            class="w-full text-white py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-lg font-medium"
             style="background-color: #077968"
           >
-            Pay Now
+            Place Order
           </button>
           <button
             onclick="closePopup()"
-            class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+            class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
           >
             Cancel
           </button>
@@ -1075,6 +1066,65 @@
     <!-- Add Snackbar -->
     <div id="snackbar" class="snackbar"></div>
 
+    <!-- Add this new success modal before the closing body tag -->
+    <div class="popup" id="successPopup">
+      <div class="popup-content max-w-lg w-full">
+        <div class="text-center p-6">
+          <div
+            class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <i class="ri-check-line text-green-500 text-4xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">
+            Order Placed Successfully!
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Thank you for your order. Your delicious meal will be delivered
+            between 6 PM - 7 PM.
+          </p>
+
+          <div class="bg-gray-50 rounded-lg p-4 mb-6">
+            <div class="text-left mb-4">
+              <h4 class="font-semibold text-gray-800 mb-2">Order Details</h4>
+              <div id="successOrderDetails" class="space-y-2 text-sm">
+                <!-- Order details will be inserted here -->
+              </div>
+            </div>
+            <div class="border-t border-gray-200 pt-4 mt-4">
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Order ID</span>
+                <span class="font-medium" id="successOrderId"></span>
+              </div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600">Delivery Address</span>
+                <span class="font-medium text-right" id="successAddress"></span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600">Estimated Delivery</span>
+                <span class="font-medium">Today, 6 PM - 7 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-3">
+            <button
+              onclick="navigateToWhatsApp()"
+              class="w-full bg-[#25D366] text-white py-3 px-4 rounded-lg hover:bg-[#128C7E] transition-colors duration-200 text-lg font-medium flex items-center justify-center gap-2"
+            >
+              <i class="ri-whatsapp-line text-2xl"></i>
+              Track on WhatsApp
+            </button>
+            <button
+              onclick="closeSuccessPopup()"
+              class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+            >
+              Back to Menu
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       let order = [];
       let currentItemToAdd = null;
@@ -1083,14 +1133,14 @@
           title: "Veg Meal",
           cost: 10,
           description:
-            "3 chapati, 200 ml rice, 200 gm dal, 150 gm veg, 50 gm salad all.",
+            "3 chapati, 200 ml rice, 200 gm dal, 150 gm veg, 50 gm salad all. Shipping charges of 1.8 Eur per order",
           image:
             "https://banner2.cleanpng.com/20180526/wla/kisspng-campagnolo-record-bicycle-cranks-campagnolo-super-veg-thali-5b09deb6a26fc8.0894582015273734946654.jpg",
           active: true,
         },
         {
           title: "Non-Veg Meal",
-          cost: 15,
+          cost: 0,
           description: "Non-Veg Meal",
           image:
             "https://www.shutterstock.com/image-vector/elegant-restaurant-menu-cover-vector-260nw-352880291.jpg",
@@ -1098,7 +1148,7 @@
         },
         {
           title: "Chicken Meal",
-          cost: 20,
+          cost: 0,
           description: "Chicken Meal",
           image:
             "https://www.shutterstock.com/image-vector/elegant-restaurant-menu-cover-vector-260nw-352880291.jpg",
@@ -1114,7 +1164,7 @@
         // },
         {
           title: "Special menu ",
-          cost: 30,
+          cost: 0,
           image:
             "https://www.shutterstock.com/image-vector/elegant-restaurant-menu-cover-vector-260nw-352880291.jpg",
           active: false,
@@ -1128,7 +1178,33 @@
         // },
       ];
 
-      const validPostalCode = [302021, 302022];
+      const validPostalCode = [
+        { postalCode: 5611, deliveryFee: 1.8, demand: "MEDIUM-HIGH" },
+        { postalCode: 5612, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5616, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5651, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5652, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5614, deliveryFee: 1.8, demand: "MEDIUM-HIGH" },
+        { postalCode: 5622, deliveryFee: 1.8, demand: "MEDIUM-HIGH" },
+        { postalCode: 5623, deliveryFee: 1.8, demand: "MEDIUM-HIGH" },
+        { postalCode: 5624, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5625, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5627, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5615, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5653, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5654, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5613, deliveryFee: 1.8, demand: "MEDIUM-HIGH" },
+        { postalCode: 5641, deliveryFee: 1.8, demand: "MEDIUM-HIGH" },
+        { postalCode: 5642, deliveryFee: 1.8, demand: "MEDIUM-HIGH" },
+        { postalCode: 5643, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5644, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5645, deliveryFee: 1.8, demand: "MEDIUM" },
+        { postalCode: 5657, deliveryFee: 1.8, demand: "LOW-MEDIUM" },
+        { postalCode: 5658, deliveryFee: 1.8, demand: "LOW-MEDIUM" },
+        { postalCode: 5628, deliveryFee: 1.8, demand: "LOW-MEDIUM" },
+        { postalCode: 5629, deliveryFee: 1.8, demand: "LOW-MEDIUM" },
+        { postalCode: 5632, deliveryFee: 1.8, demand: "LOW-MEDIUM" },
+      ];
       function renderMenu() {
         const container = document.getElementById("menuSection");
         menuItems.forEach((item) => {
@@ -1165,7 +1241,7 @@
                             : "text-gray-800"
                         }">${item.title}</h3>
                         <div class="tooltip-container">
-€${item.cost}
+                            ${item.cost && item.cost > 0 ? `€${item.cost}` : ""}
                             ${
                               item.description
                                 ? `
@@ -1248,12 +1324,21 @@
           0
         );
         document.getElementById("totalPrice").innerText = total;
+
+        // Enable/disable order button based on total
+        const orderButton = document.getElementById("orderButton");
+        if (total > 0) {
+          orderButton.disabled = false;
+        } else {
+          orderButton.disabled = true;
+        }
       }
       function payNow() {
         const validatedPostalCode = localStorage.getItem("validatedPostalCode");
         if (validatedPostalCode) {
           document.getElementById("paymentPostalCode").value =
             validatedPostalCode;
+          updateCartSummary();
         } else {
           showSnackbar(
             "Please add items to your cart first and validate your postal code.",
@@ -1288,27 +1373,20 @@
         const postalCode = document.getElementById("paymentPostalCode").value;
         const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
-        const cardNumber = document.getElementById("cardNumber").value;
-        const expiryDate = document.getElementById("expiryDate").value;
-        const cvv = document.getElementById("cvv").value;
         const address = document.getElementById("address").value;
 
         // Validate required fields
-        if (
-          !email ||
-          !phone ||
-          !postalCode ||
-          !cardNumber ||
-          !expiryDate ||
-          !cvv ||
-          !address
-        ) {
+        if (!email || !phone || !postalCode || !address) {
           showSnackbar("Please fill in all required fields", "error");
           return;
         }
 
         // Validate postal code
-        if (!validPostalCode.includes(Number(postalCode))) {
+        if (
+          !validPostalCode.some(
+            (code) => code.postalCode === Number(postalCode)
+          )
+        ) {
           showSnackbar(
             "Invalid postal code. Please enter a valid postal code.",
             "error"
@@ -1321,17 +1399,8 @@
           localStorage.setItem("validatedPostalCode", postalCode);
         }
 
-        // If all validations pass, submit payment
-        showSnackbar("Payment submitted successfully!", "success");
-
-        // Clear the cart after successful payment
-        order = [];
-        document.querySelectorAll('[id^="quantity-"]').forEach((element) => {
-          element.innerText = "0";
-        });
-        calculateTotal();
-
-        closePopup();
+        // Show success screen
+        showSuccessScreen(order, address);
       }
       function closePostalModal() {
         document.getElementById("postalModal").style.display = "none";
@@ -1339,7 +1408,9 @@
       }
       function validatePostalCode() {
         const postalCode = document.getElementById("postalCode").value;
-        if (validPostalCode.includes(Number(postalCode))) {
+        if (
+          validPostalCode.some((code) => code.postalCode === Number(postalCode))
+        ) {
           // Store the validated postal code
           localStorage.setItem("validatedPostalCode", postalCode);
           updatePostalCodeDisplay();
@@ -1428,6 +1499,125 @@
 
       // Render the menu items on page load
       renderMenu();
+
+      // Add this new function to update cart summary
+      function updateCartSummary() {
+        const cartSummaryItems = document.getElementById("cartSummaryItems");
+        const summarySubtotal = document.getElementById("summarySubtotal");
+        const summaryTotal = document.getElementById("summaryTotal");
+
+        // Clear existing items
+        cartSummaryItems.innerHTML = "";
+
+        // Calculate subtotal
+        let subtotal = 0;
+
+        // Add each item to the summary
+        order.forEach((item) => {
+          const itemTotal = item.cost * item.quantity;
+          subtotal += itemTotal;
+
+          const itemElement = document.createElement("div");
+          itemElement.className = "flex justify-between items-center text-sm";
+          itemElement.innerHTML = `
+            <div>
+              <p class="font-medium">${item.title}</p>
+              <p class="text-gray-500">€${item.cost} × ${item.quantity}</p>
+            </div>
+            <span class="font-medium">€${itemTotal.toFixed(2)}</span>
+          `;
+          cartSummaryItems.appendChild(itemElement);
+        });
+
+        // Update totals
+        const deliveryFee = 1.8;
+        const total = subtotal + deliveryFee;
+
+        summarySubtotal.textContent = `€${subtotal.toFixed(2)}`;
+        summaryTotal.textContent = `€${total.toFixed(2)}`;
+      }
+
+      // Add these new functions in your script section
+      function generateOrderId() {
+        return "MB-" + Date.now().toString().slice(-6);
+      }
+
+      function closeSuccessPopup() {
+        document.getElementById("successPopup").style.display = "none";
+        window.location.reload(); // Refresh the page to reset everything
+      }
+
+      let currentOrderId = "";
+
+      function navigateToWhatsApp() {
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const message = `Order ID: ${currentOrderId}%0AContact: ${phone}%0AEmail: ${email}`;
+        const whatsappLink = `https://wa.me/+31625228896?text=${message}`;
+        window.open(whatsappLink, "_blank");
+      }
+
+      function showSuccessScreen(orderDetails, address) {
+        const successOrderDetails = document.getElementById(
+          "successOrderDetails"
+        );
+        const successOrderId = document.getElementById("successOrderId");
+        const successAddress = document.getElementById("successAddress");
+
+        // Clear existing details
+        successOrderDetails.innerHTML = "";
+
+        // Generate and store order ID
+        currentOrderId = generateOrderId();
+        successOrderId.textContent = currentOrderId;
+
+        // Add order items
+        orderDetails.forEach((item) => {
+          const itemElement = document.createElement("div");
+          itemElement.className = "flex justify-between";
+          itemElement.innerHTML = `
+            <span>${item.quantity}x ${item.title}</span>
+            <span>€${(item.cost * item.quantity).toFixed(2)}</span>
+          `;
+          successOrderDetails.appendChild(itemElement);
+        });
+
+        // Add delivery fee
+        const deliveryElement = document.createElement("div");
+        deliveryElement.className = "flex justify-between text-gray-600";
+        deliveryElement.innerHTML = `
+          <span>Delivery Fee</span>
+          <span>€1.80</span>
+        `;
+        successOrderDetails.appendChild(deliveryElement);
+
+        // Add total
+        const total =
+          orderDetails.reduce(
+            (sum, item) => sum + item.cost * item.quantity,
+            0
+          ) + 1.8;
+        const totalElement = document.createElement("div");
+        totalElement.className =
+          "flex justify-between font-semibold mt-2 pt-2 border-t border-gray-200";
+        totalElement.innerHTML = `
+          <span>Total</span>
+          <span>€${total.toFixed(2)}</span>
+        `;
+        successOrderDetails.appendChild(totalElement);
+
+        // Set address
+        successAddress.textContent = address;
+
+        // Hide payment popup and show success popup
+        document.getElementById("paymentPopup").style.display = "none";
+        document.getElementById("successPopup").style.display = "flex";
+
+        // Automatically open WhatsApp after a short delay
+        setTimeout(() => {
+          navigateToWhatsApp();
+        }, 1500);
+      }
     </script>
   </body>
 </html>
