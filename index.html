@@ -1374,6 +1374,7 @@
         const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
         const address = document.getElementById("address").value;
+        const isValidFormat = /^\d{4}[A-Z]{2}$/.test(postalCode);
 
         // Validate required fields
         if (!email || !phone || !postalCode || !address) {
@@ -1382,11 +1383,7 @@
         }
 
         // Validate postal code
-        if (
-          !validPostalCode.some(
-            (code) => code.postalCode === Number(postalCode)
-          )
-        ) {
+        if (!isValidFormat) {
           showSnackbar(
             "Invalid postal code. Please enter a valid postal code.",
             "error"
@@ -1408,11 +1405,29 @@
       }
       function validatePostalCode() {
         const postalCode = document.getElementById("postalCode").value;
+        // Extract numeric and letter parts
+        const numericPart = postalCode.slice(0, 4);
+        const letterPart = postalCode.slice(4).toUpperCase();
+
+        // Check if the format is correct (4 digits + 2 letters)
+        const isValidFormat = /^\d{4}[A-Z]{2}$/.test(postalCode);
+
+        if (!isValidFormat) {
+          showSnackbar(
+            "Please enter a valid postal code format (e.g., 5632LA)",
+            "error"
+          );
+          return;
+        }
+
+        // Check if numeric part exists in valid postal codes
         if (
-          validPostalCode.some((code) => code.postalCode === Number(postalCode))
+          validPostalCode.some(
+            (code) => code.postalCode === Number(numericPart)
+          )
         ) {
-          // Store the validated postal code
-          localStorage.setItem("validatedPostalCode", postalCode);
+          // Store the complete postal code (numbers + letters)
+          localStorage.setItem("validatedPostalCode", postalCode.toUpperCase());
           updatePostalCodeDisplay();
 
           // Add item to cart
@@ -1553,7 +1568,7 @@
         const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
         const message = `Order ID: ${currentOrderId}%0AContact: ${phone}%0AEmail: ${email}`;
-        const whatsappLink = `https://wa.me/+31625228896?text=${message}`;
+        const whatsappLink = `https://wa.me/+31657292716?text=${message}`;
         window.open(whatsappLink, "_blank");
       }
 
