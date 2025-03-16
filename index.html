@@ -87,19 +87,134 @@
       }
 
       .sticky-bar {
-        position: sticky;
+        position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: rgb(234, 229, 218); /* Changed background to orange */
-        color: white;
-        padding: 10px; /* Adjusted padding for aesthetics */
-        height: 50px; /* Increased height of the bottom bar */
+        width: 100%;
+        background-color: #077968;
+        padding: 1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
-        /* Added shadow for depth */
+        box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        margin: 0;
+        @media screen and (max-width: 400px) {
+          bottom: 3.2rem;
+        }
+      }
+
+      .sticky-bar .total-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .sticky-bar button {
+        min-width: 120px;
+      }
+
+      /* Large Desktop (1200px and up) */
+      @media (min-width: 1200px) {
+        .sticky-bar {
+          padding: 1.25rem 2rem;
+        }
+
+        .sticky-bar .total-container {
+          font-size: 1.25rem;
+        }
+
+        .sticky-bar button {
+          min-width: 140px;
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+        }
+      }
+
+      /* Desktop (992px to 1199px) */
+      @media (min-width: 992px) and (max-width: 1199px) {
+        .sticky-bar {
+          padding: 1rem 1.5rem;
+        }
+
+        .sticky-bar .total-container {
+          font-size: 1.125rem;
+        }
+
+        .sticky-bar button {
+          min-width: 130px;
+          padding: 0.625rem 1.25rem;
+          font-size: 0.9375rem;
+        }
+      }
+
+      /* Tablet (768px to 991px) */
+      @media (min-width: 768px) and (max-width: 991px) {
+        .sticky-bar {
+          padding: 0.875rem 1.25rem;
+        }
+
+        .sticky-bar .total-container {
+          font-size: 1.1rem;
+        }
+
+        .sticky-bar button {
+          min-width: 120px;
+          padding: 0.5rem 1rem;
+          font-size: 0.875rem;
+        }
+      }
+
+      /* Large Mobile (576px to 767px) */
+      @media (min-width: 576px) and (max-width: 767px) {
+        .sticky-bar {
+          padding: 0.75rem 1rem;
+        }
+
+        .sticky-bar .total-container {
+          font-size: 1rem;
+        }
+
+        .sticky-bar button {
+          min-width: 110px;
+          padding: 0.5rem 0.875rem;
+          font-size: 0.875rem;
+        }
+      }
+
+      /* Small Mobile (320px to 575px) */
+      @media (max-width: 575px) {
+        .sticky-bar {
+          padding: 0.625rem 0.75rem;
+        }
+
+        .sticky-bar .total-container {
+          font-size: 0.9375rem;
+        }
+
+        .sticky-bar button {
+          min-width: 100px;
+          padding: 0.5rem 0.75rem;
+          font-size: 0.8125rem;
+        }
+      }
+
+      /* Extra Small Mobile (below 320px) */
+      @media (max-width: 320px) {
+        .sticky-bar {
+          padding: 0.5rem;
+        }
+
+        .sticky-bar .total-container {
+          font-size: 0.875rem;
+        }
+
+        .sticky-bar button {
+          min-width: 90px;
+          padding: 0.375rem 0.625rem;
+          font-size: 0.75rem;
+        }
       }
 
       .item-image {
@@ -165,6 +280,8 @@
         justify-content: center;
         align-items: center;
         z-index: 50;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .popup-content {
@@ -175,6 +292,62 @@
         max-width: 400px;
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
           0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        margin: 1rem auto;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 768px) {
+        .popup {
+          align-items: flex-start;
+          padding: 1rem 0;
+        }
+
+        .popup-content {
+          margin: 0 auto;
+          max-height: 85vh;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .grid.grid-cols-1.md\\:grid-cols-2.gap-8 {
+          max-height: calc(85vh - 200px);
+          overflow-y: auto;
+          padding-right: 10px;
+        }
+
+        #cartSummaryItems {
+          max-height: 200px;
+          overflow-y: auto;
+          padding-right: 5px;
+        }
+
+        /* Custom scrollbar styles */
+        .popup-content::-webkit-scrollbar,
+        #cartSummaryItems::-webkit-scrollbar,
+        .grid.grid-cols-1.md\\:grid-cols-2.gap-8::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-track,
+        #cartSummaryItems::-webkit-scrollbar-track,
+        .grid.grid-cols-1.md\\:grid-cols-2.gap-8::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 2px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb,
+        #cartSummaryItems::-webkit-scrollbar-thumb,
+        .grid.grid-cols-1.md\\:grid-cols-2.gap-8::-webkit-scrollbar-thumb {
+          background: #888;
+          border-radius: 2px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover,
+        #cartSummaryItems::-webkit-scrollbar-thumb:hover,
+        .grid.grid-cols-1.md\\:grid-cols-2.gap-8::-webkit-scrollbar-thumb:hover {
+          background: #666;
+        }
       }
 
       /* Postal Code Modal styles */
@@ -471,7 +644,7 @@
     <div class="grid-container" id="menuSection"></div>
 
     <!-- About Us Section -->
-    <section class="py-8 md:py-16 bg-gray-50" id="about">
+    <section class="py-8 md:py-16 bg-gray-50 w-auto" id="about">
       <div class="container mx-auto px-4">
         <h2
           class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800"
@@ -842,9 +1015,10 @@
       </div>
     </section>
 
-    <div class="sticky-bar" style="background-color: #077968">
-      <div style="font-size: 24px" class="text-black font-bold">
-        Total: <span id="totalPrice">0</span>
+    <div class="sticky-bar">
+      <div class="total-container text-white font-bold">
+        <span>Total:</span>
+        <span>€<span id="totalPrice">0</span></span>
       </div>
       <button
         id="orderButton"
@@ -881,7 +1055,7 @@
           </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 scrollbar-hide">
           <!-- Left Column - Customer Details -->
           <div class="space-y-4">
             <h4 class="text-lg font-semibold text-gray-800 mb-4">
